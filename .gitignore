@@ -1,20 +1,22 @@
+# Chaves privadas / credenciais — nunca enviar!
+serviceAccountKey.json
+*service-account*.json
+*-firebase-adminsdk-*.json
+*privatekey*.json
+
 # Python
 __pycache__/
-*.py[cod]
-*.egg-info/
+*.pyc
 .venv/
 venv/
 
-# Ambiente / logs
-server.log
-*.log
+# Ambiente de teste local (emulador Firestore)
+node_modules/
+package-lock.json
+firebase.json
+firestore-debug.log
+ui-debug.log
 
-# Empacotamento
+# Empacotamento (arquivos de entrega)
 *.zip
 *.tar.gz
-
-# SO / editores
-.DS_Store
-Thumbs.db
-.vscode/
-.idea/

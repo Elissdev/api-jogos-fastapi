@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """
-teste_api.py — Testa automaticamente todos os cenários da API de Jogos.
+teste_api.py — Testa automaticamente todos os cenários da API de Jogos
+integrada ao Cloud Firestore.
 
 Uso:
     python3 teste_api.py
@@ -8,6 +9,7 @@ Uso:
 Requisitos:
     - A API deve estar rodando em http://127.0.0.1:8000
       (inicie com: uvicorn main:app --reload)
+    - O Firestore deve estar configurado (credencial real ou emulador)
 
 O script usa apenas a biblioteca padrão do Python (urllib),
 não precisa instalar nada.
@@ -67,7 +69,7 @@ def verificar(nome, condicao, detalhe=""):
 
 
 def id_inexistente(lista):
-    """Gera um id que certamente não existe na lista atual."""
+    """Gera um id que certamente não existe na coleção atual."""
     while True:
         novo = random.randint(1_000_000, 99_999_999)
         if all(j["id"] != novo for j in lista):
@@ -77,7 +79,7 @@ def id_inexistente(lista):
 def main():
     global PASS, FAIL
     print("=" * 62)
-    print("  TESTE AUTOMÁTICO — API de Jogos (FastAPI)")
+    print("  TESTE AUTOMÁTICO — API de Jogos (FastAPI + Firestore)")
     print(f"  Servidor: {BASE}")
     print("=" * 62)
 
@@ -89,9 +91,9 @@ def main():
     verificar("GET /openapi.json responde", status == 200)
 
     # ------------------------------------------------------------------
-    # 1) Criar registros (POST)
+    # 1) Criar registros (POST) — gravados no Firestore
     # ------------------------------------------------------------------
-    print("\n[1] Criar registros — POST /jogos")
+    print("\n[1] Criar registros — POST /jogos (persistidos no Firestore)")
 
     jogo_a = {
         "id": id_inexistente([]),
